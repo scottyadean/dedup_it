@@ -1,0 +1,27 @@
+service: aws-node # NOTE: update this with your service name
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+
+
+package:
+  patterns:
+    - '!env/**'
+    - '!node_modules/**'
+    - '!tests/**'
+
+plugins:
+  - serverless-offline
+
+functions:
+  function1:
+    handler: index.handler
+    events:
+      - http:
+          path: /user/config/dedup
+          method: GET
+          cors: true
+
